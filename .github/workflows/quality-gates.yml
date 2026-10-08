@@ -35,6 +35,8 @@ jobs:
           git clone --depth 1 https://github.com/unclebob/mutator.git .gauntlet/mutator
           cd .gauntlet/mutator && ./mutator --help >/dev/null 2>&1 || true
           .venv/bin/pip install pytest coverage
+      - name: 生成覆盖率基线（mutator 的覆盖率数据来自 crapper 产物，必须先跑 crapper）
+        run: ./.gauntlet/crapper/crapper
       - name: Mutation gate（存活变异体 = 0；等价变异体人工核验后可豁免，见 EQUIVALENT-MUTANTS.md）
         run: |
           set +e
